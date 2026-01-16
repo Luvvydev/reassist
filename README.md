@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="reassist.png" alt="reassist">
+</p>
+
 # REAssist
 
 REAssist is a small CLI that does boring first-pass reverse engineering triage and turns it into a report.
