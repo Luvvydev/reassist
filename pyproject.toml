@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reassist"
+version = "0.1.0"
+description = "Evidence-first reverse engineering assistant: strings triage, IOC extraction, import hints, and report generation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "REAssist Contributors"}]
+keywords = ["reverse-engineering", "triage", "ioc", "ghidra", "static-analysis"]
+
+dependencies = [
+  "typer>=0.12.3",
+  "rich>=13.7.1",
+  "jinja2>=3.1.4",
+  "pydantic>=2.7.0",
+]
+
+[project.optional-dependencies]
+elf = ["pyelftools>=0.31"]
+pe = ["pefile>=2023.2.7"]
+yara = ["yara-python>=4.5.1"]
+
+[project.scripts]
+reassist = "reassist.cli:app"
+
+[tool.setuptools]
+include-package-data = true
+package-dir = {"" = "."}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["reassist*"]
+
+
+[tool.setuptools.package-data]
+reassist = ["templates/*.j2"]

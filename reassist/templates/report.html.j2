@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>REAssist Report</title>
+<style>
+body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;margin:24px}
+pre{white-space:pre-wrap}
+section{margin:18px 0}
+small{color:#555}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+</style>
+</head>
+<body>
+<h1>REAssist Report</h1>
+<small>Generated: {{ generated_at }}</small>
+
+<section>
+<h2>File</h2>
+<ul>
+  <li><b>Path</b>: {{ a.file.path }}</li>
+  <li><b>Size</b>: {{ a.file.size_bytes }} bytes</li>
+  <li><b>SHA256</b>: <code>{{ a.file.sha256 }}</code></li>
+  {% if a.file.file_output %}<li><b>file(1)</b>: {{ a.file.file_output }}</li>{% endif %}
+  {% if a.file.mime %}<li><b>MIME</b>: {{ a.file.mime }}</li>{% endif %}
+</ul>
+</section>
+
+<section>
+<h2>IOCs</h2>
+{% if a.tools.iocs %}
+<pre>
+IPv4 ({{ a.tools.iocs.ipv4 | length }}):
+{{ a.tools.iocs.ipv4 | join("\n") }}
+
+IPv6 ({{ a.tools.iocs.ipv6 | length }}):
+{{ a.tools.iocs.ipv6 | join("\n") }}
+
+Domains ({{ a.tools.iocs.domains | length }}):
+{{ a.tools.iocs.domains | join("\n") }}
+
+URLs ({{ a.tools.iocs.urls | length }}):
+{{ a.tools.iocs.urls | join("\n") }}
+
+Emails ({{ a.tools.iocs.emails | length }}):
+{{ a.tools.iocs.emails | join("\n") }}
+
+File paths ({{ a.tools.iocs.file_paths | length }}):
+{{ a.tools.iocs.file_paths | join("\n") }}
+
+Registry paths ({{ a.tools.iocs.registry_paths | length }}):
+{{ a.tools.iocs.registry_paths | join("\n") }}
+
+Crypto keywords ({{ a.tools.iocs.crypto_keywords | length }}):
+{{ a.tools.iocs.crypto_keywords | join("\n") }}
+</pre>
+{% else %}
+<p>No IOC extraction output.</p>
+{% endif %}
+</section>
+
+<section>
+<h2>Import hints</h2>
+{% if a.tools.imports %}
+{% for k, v in a.tools.imports.items() %}
+<h3>{{ k }}</h3>
+<pre>{{ v | join("\n") }}</pre>
+{% endfor %}
+{% else %}
+<p>No import hints.</p>
+{% endif %}
+</section>
+
+<section>
+<h2>Strings sample</h2>
+{% if a.tools.strings %}
+<p><small>min_len={{ a.tools.strings.min_len }}, total={{ a.tools.strings.total }}, showing={{ a.tools.strings.sample | length }}</small></p>
+<pre>{{ a.tools.strings.sample[:400] | join("\n") }}</pre>
+{% else %}
+<p>No strings output available.</p>
+{% endif %}
+</section>
+
+<section>
+<h2>Notes</h2>
+{% if a.tools.notes %}
+<ul>
+{% for n in a.tools.notes %}<li>{{ n }}</li>{% endfor %}
+</ul>
+{% else %}
+<p>None</p>
+{% endif %}
+</section>
+
+</body>
+</html>

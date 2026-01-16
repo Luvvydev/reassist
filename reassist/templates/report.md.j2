@@ -1,0 +1,44 @@
+# REAssist Report
+
+Generated: {{ generated_at }}
+
+## File
+- Path: `{{ a.file.path }}`
+- Size: {{ a.file.size_bytes }} bytes
+- SHA256: `{{ a.file.sha256 }}`
+{% if a.file.file_output %}- file(1): {{ a.file.file_output }}
+{% endif %}{% if a.file.mime %}- MIME: {{ a.file.mime }}
+{% endif %}
+
+## IOC counts
+{% if a.tools.iocs %}
+- IPv4: {{ a.tools.iocs.ipv4 | length }}
+- IPv6: {{ a.tools.iocs.ipv6 | length }}
+- Domains: {{ a.tools.iocs.domains | length }}
+- URLs: {{ a.tools.iocs.urls | length }}
+- Emails: {{ a.tools.iocs.emails | length }}
+- File paths: {{ a.tools.iocs.file_paths | length }}
+- Registry paths: {{ a.tools.iocs.registry_paths | length }}
+- Crypto keywords: {{ a.tools.iocs.crypto_keywords | length }}
+{% else %}
+- No IOC extraction output.
+{% endif %}
+
+## Imports
+{% if a.tools.imports %}
+{% for k, v in a.tools.imports.items() %}
+### {{ k }}
+{% for x in v %}- `{{ x }}`
+{% endfor %}
+{% endfor %}
+{% else %}
+- No import hints.
+{% endif %}
+
+## Notes
+{% if a.tools.notes %}
+{% for n in a.tools.notes %}- {{ n }}
+{% endfor %}
+{% else %}
+- None
+{% endif %}
