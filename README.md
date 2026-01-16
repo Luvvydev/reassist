@@ -73,7 +73,7 @@ REAssist is meant for:
 - classroom reverse engineering labs
 - defensive triage in controlled environments
 
-## How to use after you unzip:
+## Quick Start
 
 ```bash
 cd reassist
