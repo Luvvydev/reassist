@@ -1,6 +1,9 @@
 <p align="center">
   <img src="reassist.png" alt="reassist">
 </p>
+<p align="center">
+  <img src="report.png" alt="report">
+</p>
 
 # REAssist
 
